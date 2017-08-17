@@ -1,0 +1,22 @@
+---
+- hosts: webserver
+  remote_user: root
+
+  roles:
+    - new_ansibleuser
+
+- hosts: webserver
+  remote_user: ansibleuser
+  become: yes
+  become_method: sudo
+
+  roles:
+    - change_hostname
+    - new_wpuser
+    - prerequisites
+    - apache
+    - apache_vhosts
+    - mariadb
+    - php
+    - wpcli
+    - wordpress
