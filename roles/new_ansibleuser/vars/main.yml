@@ -1,0 +1,3 @@
+---
+sudouser_name: ansibleuser
+sudouser_pass: test123
