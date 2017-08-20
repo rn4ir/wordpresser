@@ -5,14 +5,13 @@
   roles:
     - new_ansibleuser
 
-#- hosts: webserver
-#  remote_user: ansibleuser
-#  become: yes
-#  become_method: sudo
-#
-#  roles:
-#    - change_hostname
-#    - prerequisites
+- hosts: webserver
+  remote_user: ansibleuser
+  become: yes
+  become_method: sudo
+
+  roles:
+    - prerequisites
 #    - new_wpuser
 #    - prerequisites
 #    - apache
