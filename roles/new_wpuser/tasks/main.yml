@@ -1,0 +1,24 @@
+---
+- name: Create a new WP user
+  user:
+    name: "{{ wpuser_name }}"
+    password: "{{ wpuser_pass }}"
+    shell: "/bin/bash"
+
+- name: Create directories
+  file:
+    path: "/home/{{ wpuser_name }}/{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "{{ wpuser_name }}"
+    group: "{{ wpuser_name }}"
+  with_items:
+    - "public_html"
+    - "logs"
+
+- name: Change home dir permissions
+  file:
+    path: "/home/{{ wpuser_name }}/"
+    mode: 0711
+
+
