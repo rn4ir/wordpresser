@@ -1,9 +1,9 @@
 ---
-#- hosts: webserver
-#  remote_user: root
-#
-#  roles:
-#    - new_ansibleuser
+- hosts: webserver
+  remote_user: root
+
+  roles:
+    - new_ansibleuser
 
 - hosts: webserver
   remote_user: ansibleuser
