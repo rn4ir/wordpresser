@@ -1,0 +1,27 @@
+---
+- name: Backup the existing SSH configuration file
+  stat: 
+    path: "/etc/ssh/sshd_config"
+  register: config_status
+
+- name: Copy the sshd_config to sshd_config.orig
+  copy: 
+    remote_src: True
+    src: "/etc/ssh/sshd_config"
+    dest: "/etc/ssh/sshd_config.orig"
+
+- name: Change PermitRootLogin to 'no'
+  lineinfile: 
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^#PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+
+- name: Add 'AllowUsers' to sshd_config
+  lineinfile: 
+    dest: "/etc/ssh/sshd_config"
+    line: "AllowUsers {{ sudouser_name }}"
+    state: present
+
+  notify:
+    - restart_sshd
