@@ -1,0 +1,67 @@
+---
+- name: Install httpd on the RedHat servers
+  yum: 
+    name: "httpd"
+    update_cache: yes
+    state: latest
+  when: ansible_os_family == "RedHat"
+
+- name: Install apache2 on the Debian servers
+  apt: 
+    name: "apache2"
+    update_cache: yes
+    state: latest
+  when: ansible_os_family == "Debian"
+
+- name: Enable the apache service
+  systemd: 
+    name: "httpd"
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Enable the apache2 service
+  systemd: 
+    name: "apache2"
+    state: started
+    enabled: yes
+  when: ansible_os_family == "Debian"
+
+- name: open_http_port
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: open_https_port
+  firewalld:
+    service: https
+    permanent: true
+    state: enabled
+    immediate: true
+    
+  notify:
+    - restart_httpd
+    - restart_apache2
+
+#- name: Check if the httpd config file exists
+#  stat: 
+#    path: "/etc/httpd/conf/httpd.conf"
+#  register: conf_exists
+#
+#- name: Backup if the existing httpd.conf
+#  copy: 
+#    remote_src: True
+#    src: "/etc/httpd/conf/httpd.conf"
+#    dest: "/etc/httpd/conf/httpd.conf.orig"
+#  when: conf_exists.stat.exists
+
+# Copy the conf file from the 'conf' directory to the remote server
+#- name: Copy our httpd.conf to the remote server
+#  copy: src=conf/httpd.conf
+#        dest=/etc/httpd/conf/httpd.conf
+#        owner=root
+#        group=root
+#        mode=0644
+#        backup=yes

@@ -1,9 +1,9 @@
 ---
-- hosts: webserver
-  remote_user: root
-
-  roles:
-    - new_ansibleuser
+#- hosts: webserver
+#  remote_user: root
+#
+#  roles:
+#    - new_ansibleuser
 
 - hosts: webserver
   remote_user: ansibleuser
@@ -11,13 +11,12 @@
   become_method: sudo
 
   roles:
-    - prerequisites
-    - ssh
-#    - new_wpuser
 #    - prerequisites
-#    - apache
+#    - ssh
+    - apache
 #    - apache_vhosts
 #    - mariadb
 #    - php
 #    - wpcli
+#    - new_wpuser
 #    - wordpress
