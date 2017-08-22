@@ -40,3 +40,10 @@
     update_cache: yes
     state: latest
   when: ansible_os_family == "Debian"
+
+- name: install systemd in Debian servers
+  apt:
+    name: "systemd"
+    update_cache: yes
+    state: latest
+  when: ansible_os_family == "Debian"
