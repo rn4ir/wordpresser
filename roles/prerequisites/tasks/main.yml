@@ -47,3 +47,29 @@
     update_cache: yes
     state: latest
   when: ansible_os_family == "Debian"
+
+- name: install python-selinux in Debian servers
+  apt:
+    name: "python-selinux"
+    update_cache: yes
+    state: latest
+  when: ansible_os_family == "Debian"
+
+- name: install policycoreutils in Debian servers
+  apt:
+    name: "policycoreutils"
+    update_cache: yes
+    state: latest
+  when: ansible_os_family == "Debian"
+
+- name: install policycoreutils-python in RedHat servers
+  yum:
+    name: "policycoreutils-python"
+    update_cache: yes
+    state: latest
+  when: ansible_os_family == "RedHat"
+
+- name: set selinux to Enforcing
+  selinux:
+    policy: targeted
+    state: enforcing
