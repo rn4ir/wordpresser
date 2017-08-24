@@ -50,16 +50,13 @@
 
 - name: install python-selinux in Debian servers
   apt:
-    name: "python-selinux"
+    name: "{{ item }}"
     update_cache: yes
     state: latest
-  when: ansible_os_family == "Debian"
-
-- name: install policycoreutils in Debian servers
-  apt:
-    name: "policycoreutils"
-    update_cache: yes
-    state: latest
+  with_items:
+    - policycoreutils
+    - python-selinux
+    - selinux-basics
   when: ansible_os_family == "Debian"
 
 - name: install policycoreutils-python in RedHat servers
@@ -73,3 +70,4 @@
   selinux:
     policy: targeted
     state: enforcing
+  when: ansible_os_family == "RedHat"
