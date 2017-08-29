@@ -26,12 +26,14 @@
     target: "/home/{{ wpuser_name }}/logs"
     setype: httpd_log_t
     state: present
+  when: ansible_os_family == "RedHat"
 
 - name: Change context of public_html dir
   sefcontext:
     target: "/home/{{ wpuser_name }}/public_html"
     setype: httpd_sys_content_t
     state: present
+  when: ansible_os_family == "RedHat"
  
 - name: Copy our index.html to the remote Redhat server
   copy: 
