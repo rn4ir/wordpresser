@@ -11,11 +11,11 @@
   become_method: sudo
 
   roles:
-    - prerequisites
+#    - prerequisites
 #    - ssh
 #    - apache
 #    - new_wpuser
-#    - apache_vhosts
+    - apache_vhosts
 #    - mariadb
 #    - php
 #    - wpcli

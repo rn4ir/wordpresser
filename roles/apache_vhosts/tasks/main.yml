@@ -1,0 +1,41 @@
+---
+
+- name: create apache vhost dirs - RedHat
+  file:
+    path: "/etc/httpd/{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "root"
+    group: "root"
+  with_items:
+    - "sites-available"
+    - "sites-enabled"
+  when: ansible_os_family == "RedHat"
+
+- name: create apache vhost dirs - Debian
+  file:
+    path: "/etc/apache2/{{ item }}"
+    state: directory
+    mode: 0755
+    owner: "root"
+    group: "root"
+  with_items:
+    - "sites-available"
+    - "sites-enabled"
+  when: ansible_os_family == "Debian"
+
+- name: Include new Apache dirs using IncludeOptional in main apache conf - RedHat
+  lineinfile:
+    dest: "/etc/httpd/conf/httpd.conf"
+    regexp: "^IncludeOptional sites-enabled"
+    line: "IncludeOptional sites-enabled/*.conf"
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Include new Apache dirs using IncludeOptional in main apache conf - Debian
+  lineinfile:
+    dest: "/etc/apache2/apache2.conf"
+    regexp: "^IncludeOptional sites-enabled"
+    line: "IncludeOptional sites-enabled/*.conf"
+    state: present
+  when: ansible_os_family == "Debian"
