@@ -15,8 +15,8 @@
 #    - ssh
 #    - apache
 #    - new_wpuser
-    - apache_vhosts
-#    - mariadb
+#    - apache_vhosts
+    - mariadb
 #    - php
 #    - wpcli
 #    - wordpress
