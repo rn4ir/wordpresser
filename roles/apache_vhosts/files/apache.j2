@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+    ServerName {{ wpdomain }}
+    DocumentRoot /home/{{ wpuser_name }}/public_html
+    ServerAlias www.{{ wpdomain }}
+    ErrorLog /home/{{ wpuser_name }}/logs/error.log
+    CustomLog /home/{{ wpuser_name }}/logs/requests.log combined
+
+    <Directory "/home/{{ wpuser_name }}/public_html">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+        Require all granted
+    </Directory>
+
+</VirtualHost>

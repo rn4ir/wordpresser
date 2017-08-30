@@ -39,3 +39,38 @@
     line: "IncludeOptional sites-enabled/*.conf"
     state: present
   when: ansible_os_family == "Debian"
+
+- name: Copy Apache config file to Debian
+  template: 
+    src: "files/apache.j2"
+    dest: "/etc/apache2/sites-available/{{ wpdomain }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == "Debian"
+
+- name: Copy Apache config file to RedHat
+  template: 
+    src: "files/apache.j2"
+    dest: "/etc/httpd/sites-available/{{ wpdomain }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  when: ansible_os_family == "RedHat"
+
+- name: a2ensite for Debian
+  command: "a2ensite {{ wpdomain }}.conf"
+  when: ansible_os_family == "Debian"
+
+- name: symlink for RedHat vhost
+  file:
+    src: "/etc/httpd/sites-available/{{ wpdomain }}.conf"
+    dest: "/etc/httpd/sites-enabled/{{ wpdomain }}.conf"
+    owner: root
+    group: root
+    state: link
+  when: ansible_os_family == "RedHat"
+
+  notify:
+    - restart_httpd
+    - restart_apache2
