@@ -35,6 +35,14 @@
     - php5-gd
   when: ansible_os_family == "Debian"
 
+- name: Copying the test index file
+  copy: 
+    src: "files/index.php"
+    dest: "/var/www/html"
+    owner: root
+    group: root
+    mode: 0644
+
   notify:
     - restart_httpd
     - restart_apache2
