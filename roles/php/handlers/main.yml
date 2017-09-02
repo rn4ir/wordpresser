@@ -1,5 +1,11 @@
-    # Restart the httpd service
-    - name: restart_apache
-      service: 
-        name: httpd
-        state: restarted
+- name: restart_httpd
+  service:
+   name: httpd
+   state: restarted
+  when: ansible_os_family == "RedHat"
+
+- name: restart_apache2
+  service:
+   name: apache2
+   state: restarted
+  when: ansible_os_family == "Debian"
