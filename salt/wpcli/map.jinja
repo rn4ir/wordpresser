@@ -1,0 +1,12 @@
+{%  set wpcli = salt['grains.filter_by']({
+    'Debian': {
+        'url': 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar',
+        'service': 'apache2',
+	    'docroot': '/var/www/html/',
+    },
+    'RedHat': {
+        'url': 'https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar',
+        'service': 'httpd',
+	    'docroot': '/var/www/html/',
+    }
+}) %}

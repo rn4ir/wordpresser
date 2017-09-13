@@ -1,0 +1,10 @@
+{%  set wordpress = salt['grains.filter_by']({
+    'Debian': {
+        'url': 'http://wptest.com',
+        'name': 'WP TEST BLOG',
+    },
+    'RedHat': {
+        'url': 'http://wptest.com',
+        'name': 'WP TEST BLOG',
+    }
+}) %}

@@ -1,0 +1,12 @@
+{%  set php = salt['grains.filter_by']({
+    'Debian': {
+        'pkgs': ['php5', 'php5-mysql', 'php-pear', 'php5-cli', 'php5-common', 'php5-dev', 'libapache2-mod-php5', 'php5-fpm', 'php5-gd'],
+        'service': 'php5-fpm',
+	'docroot': '/var/www/html/',
+    },
+    'RedHat': {
+        'pkgs': [ 'php', 'php-cli', 'php-common', 'php-devel', 'php-mbstring', 'php-pdo', 'php-pear', 'php-mysql', 'php-gd', 'php-fpm', 'php-xml'],
+        'service': 'php-fpm',
+	'docroot': '/var/www/html/',
+    }
+}) %}

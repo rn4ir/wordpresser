@@ -1,0 +1,10 @@
+{%  set wpuser = salt['grains.filter_by']({
+    'Debian': {
+        'username': 'wptest',
+        'domain': 'wptest.com',
+    },
+    'RedHat': {
+        'username': 'wptest',
+        'domain': 'wptest.com',
+    }
+}) %}

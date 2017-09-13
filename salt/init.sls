@@ -1,0 +1,14 @@
+include:
+  - wordpresser.common.packages
+  - wordpresser.nginx.repo
+  - wordpresser.nginx.packages
+  - wordpresser.nginx.firewalld
+  - wordpresser.mysql.packages
+  - wordpresser.mysql.firewalld
+  - wordpresser.mysql.mysql_secure
+  - wordpresser.php.packages
+  - wordpresser.wp_user.create
+  - wordpresser.wp_user.configure
+  - wordpresser.wpcli.install
+  - wordpresser.wordpress.install
+  - wordpresser.wordpress.createdb
