@@ -33,3 +33,6 @@ Document-Root: ***/home/wptest/public_html***
 
 - Accessing the domain (`wptest.com`) on the browser, using the minion's IP should yield a default Wordpress website.
 - Accessing the Admin page (`wptest.com/wp-admin`) should allow you to log in using the WP credentials (`admin/test123`)
+  
+**Tested on:** Debian 8, Debian 9  
+**TODO:**  Test on CentOS, RHEL, Ubuntu variants
