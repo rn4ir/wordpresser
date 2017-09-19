@@ -10,5 +10,5 @@ include:
   - wordpresser.wp_user.create
   - wordpresser.wp_user.configure
   - wordpresser.wpcli.install
-  - wordpresser.wordpress.install
   - wordpresser.wordpress.createdb
+  - wordpresser.wordpress.install
