@@ -1,6 +1,6 @@
 {%- from "wordpresser/wpcli/map.jinja" import wpcli %}
 
-install_wp:
+install_wpcli:
   cmd.script:
     - source: salt://wordpresser/wpcli/files/install-wpcli.sh
     - cwd: {{ wpcli.docroot }}
