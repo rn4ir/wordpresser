@@ -41,10 +41,10 @@ add-enabled-nginx-conf:
     - backup: True
     - after: "include /etc/nginx/conf.d/*.conf;"
 
-php5-fpm-restart:
+php5_fpm_restart:
   cmd.run:
     - name: systemctl restart php5-fpm
 
-nginx-restart:
+nginx_restart:
   cmd.run:
     - name: systemctl restart nginx 
