@@ -2,8 +2,8 @@
 
 nginx-repo-deb:
   pkgrepo.managed:
-    {% if grains['os_family'] == 'Debian' %}
     - humanname: Official Nginx Repository - Debian
+    {% if grains['os_family'] == 'Debian' %}
     - name: deb http://nginx.org/packages/debian/ jessie nginx
     - file: /etc/apt/sources.list.d/nginx.list
     - refresh_db: true
