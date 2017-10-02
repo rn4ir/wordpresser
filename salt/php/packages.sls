@@ -4,7 +4,7 @@ install_php:
   pkg.installed:
     - names: {{ php.pkgs }}
 
-php5-fpm-service:
+php-fpm-service:
   service.running:
     - name: {{ php.service }}
     - enable: True
@@ -12,10 +12,6 @@ php5-fpm-service:
       - pkg: {{ php.service }}
     - require:
       - pkg: {{ php.service }}
-
-#nginx-restart:
-#  cmd.run:
-#    - name: systemctl restart nginx
 
 copy_info_file:
   file.managed:
@@ -25,16 +21,20 @@ copy_info_file:
 
 php.ini-conf:
   file.replace:
-    - name: /etc/php5/fpm/php.ini
+    - name: {{ php.phpini }}
     - pattern: ";cgi.fix_pathinfo=1"
     - repl: "cgi.fix_pathinfo=0"
 
 www.conf-listen.mode:
-  file.replace:
-    - name: /etc/php5/fpm/pool.d/www.conf
-    - pattern: ";listen.mode = 0660"
-    - repl: "listen.mode = 0660"
+  file.managed:
+    - name: {{ php.phpwww }}
+    {% if grains['os_family'] == 'Debian' %}
+    - source: salt://wordpresser/php/files/www.conf_deb
+    {% elif grains['os_family'] == 'RedHat' %}
+    - source: salt://wordpresser/php/files/www.conf_centos
+    {% endif %}
 
+{% if grains['os_family'] == 'Debian' %}
 add-nginx-to-wwwdata:
   group.present:
     - name: www-data
@@ -46,11 +46,23 @@ copy_default_conf:
     - name: /etc/nginx/conf.d/default.conf
     - source: salt://wordpresser/php/files/default.conf
     - backup: minion
+{% endif %}
 
-
-php5-fpm-restart:
+{% if grains['os_family'] == 'RedHat' %}
+selinux-state-temp:
   cmd.run:
-    - name: systemctl restart php5-fpm
+    - name: setenforce 0
+
+selinux-state-perm:
+  file.replace:
+    - name: /etc/selinux/config
+    - pattern: "SELINUX=enforcing"
+    - repl: "SELINUX=permissive"
+{% endif %}
+
+php-fpm-restart:
+  cmd.run:
+    - name: systemctl restart {{ php.service }}
 
 nginx-restart:
   cmd.run:
