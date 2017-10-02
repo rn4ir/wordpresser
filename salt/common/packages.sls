@@ -6,5 +6,4 @@ common_deps:
       - unzip
       - curl
       - tree
-      - htop
       - systemd
