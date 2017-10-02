@@ -7,6 +7,7 @@
 - Install PHP (PHP 5.6), and PHP-FPM, and copies a default info.php file to Nginx's default Document Root (/usr/share/nginx/html/)
 - Edits `php.ini` and `www.conf`
 - Configures Nginx's default configuration file (default.conf) to use PHP and PHP-FPM
+- *changes SELinux to permissive on CentOS/RedHat variants*
 
 ##### Wordpress Installation
 
@@ -34,5 +35,5 @@ Document-Root: ***/home/wptest/public_html***
 - Accessing the domain (`wptest.com`) on the browser, using the minion's IP should yield a default Wordpress website.
 - Accessing the Admin page (`wptest.com/wp-admin`) should allow you to log in using the WP credentials (`admin/test123`)
   
-**Tested on:** Debian 8, Debian 9  
-**TODO:**  Test on CentOS, RHEL, Ubuntu variants
+**Tested on:** Debian 8, Debian 9, CentOS 7  
+**TODO:**  Test on Ubuntu variants
